@@ -1,4 +1,8 @@
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using Microsoft.AspNetCore.Http.Json;
 using DbManager;
+<<<<<<< HEAD
 using PetrolTracker.Data;
 using PetrolTracker.Models;
 using PetrolTracker.Services;
@@ -81,10 +85,22 @@ builder.Services
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+=======
+
+GlobalSettings.UpdateDB = false;
+
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddRazorPages();
+builder.Services.Configure<JsonOptions>(options =>
+{
+    options.SerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+    options.SerializerOptions.PropertyNameCaseInsensitive = true;
+>>>>>>> 0a6f5bceb2b38a298b79bd537f929bd2e986ee40
 });
 
 var app = builder.Build();
 
+<<<<<<< HEAD
 using (var scope = app.Services.CreateScope())
 {
     var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
@@ -121,3 +137,9 @@ app.MapRazorPages();
 app.MapControllers();
 
 app.Run();
+=======
+app.MapRazorPages();
+app.UseStaticFiles();
+
+app.Run();
+>>>>>>> 0a6f5bceb2b38a298b79bd537f929bd2e986ee40
